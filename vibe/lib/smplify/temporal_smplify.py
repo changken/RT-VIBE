@@ -4,9 +4,9 @@
 import os
 import torch
 
-from lib.core.config import VIBE_DATA_DIR
-from lib.models.smpl import SMPL, JOINT_IDS, SMPL_MODEL_DIR
-from lib.smplify.losses import temporal_camera_fitting_loss, temporal_body_fitting_loss
+from vibe.lib.core.config import VIBE_DATA_DIR
+from vibe.lib.models.smpl import SMPL, JOINT_IDS, SMPL_MODEL_DIR
+from vibe.lib.smplify.losses import temporal_camera_fitting_loss, temporal_body_fitting_loss
 
 # For the GMM prior, we use the GMM implementation of SMPLify-X
 # https://github.com/vchoutas/smplify-x/blob/master/smplifyx/prior.py

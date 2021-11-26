@@ -20,8 +20,8 @@ import os.path as osp
 import torch.nn as nn
 import torch.nn.functional as F
 
-from lib.core.config import VIBE_DATA_DIR
-from lib.models.spin import Regressor, hmr
+from vibe.lib.core.config import VIBE_DATA_DIR
+from vibe.lib.models.spin import Regressor, hmr
 
 
 class TemporalEncoder(nn.Module):

@@ -18,7 +18,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.nn.utils import spectral_norm
-from lib.models.attention import SelfAttention
+from vibe.lib.models.attention import SelfAttention
 
 class MotionDiscriminator(nn.Module):
 

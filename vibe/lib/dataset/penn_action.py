@@ -14,16 +14,17 @@
 #
 # Contact: ps-license@tuebingen.mpg.de
 
-from lib.dataset import Dataset2D
-from lib.core.config import POSETRACK_DIR
+from vibe.lib.dataset import Dataset2D
+from vibe.lib.core.config import PENNACTION_DIR
 
 
-class PoseTrack(Dataset2D):
-    def __init__(self, seqlen, overlap=0.75, folder=None, debug=False):
-        db_name = 'posetrack'
-        super(PoseTrack, self).__init__(
+class PennAction(Dataset2D):
+    def __init__(self, seqlen, overlap=0.75, debug=False):
+        db_name = 'pennaction'
+
+        super(PennAction, self).__init__(
             seqlen = seqlen,
-            folder=POSETRACK_DIR,
+            folder=PENNACTION_DIR,
             dataset_name=db_name,
             debug=debug,
             overlap=overlap,

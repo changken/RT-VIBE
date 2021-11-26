@@ -2,8 +2,8 @@
 # sequences inputs.
 
 import torch
-from lib.models.spin import perspective_projection
-from lib.models.smpl import JOINT_IDS
+from vibe.lib.models.spin import perspective_projection
+from vibe.lib.models.smpl import JOINT_IDS
 
 
 def gmof(x, sigma):
