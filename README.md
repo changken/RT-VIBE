@@ -5,8 +5,9 @@ Under development.
 
 # Task list
 - [x] Make VIBE an installable package
-- [ ] Fix **GRU memory discontinuous between batches** in demo.py
+- [x] Fix **GRU hidden states discontinuous between batches** in demo.py
 - [ ] Add **realtime live interface** which processes the video stream frame-by-frame
+- [x] Lower GPU memory usage
 
 # Explain
 1. #### Pip installable. 
@@ -16,11 +17,9 @@ Under development.
 pip install git+https://github.com/zc402/VIBE.git
 ```
 
-2. #### GRU memory reset problem: (fix under development)
+2. #### GRU hidden state reset bug:
 
-- The original vibe.py **reset** GRU memory between batches, which causes discontinuous predictions. This repo tries to fix that.
-
-- This default behavior is probably just for simplicity. keeping hidden states for multi-person is troublesome. 
+- The original vibe.py **reset** GRU memory between batches, which causes discontinuous predictions. This repo fix that.
 
 - The GRU hidden state is `reset` at:
 ```
@@ -34,6 +33,16 @@ y, _ = self.gru(x)
 ```
 
 - This repo preserve GRU hidden state within the **lifecycle of the model**, instead of one batch.
+
+```
+# Fix:
+
+# __init__()
+self.gru_final_hidden = None
+
+# forward()
+y, self.gru_final_hidden = self.gru(x, self.gru_final_hidden)
+```
 
 3. #### Realtime interface (Under development)
 
@@ -52,3 +61,19 @@ y, _ = self.gru(x)
   - run tracking for 1 frame
   - predict smpl params for each person, keep the hidden states separately.
   - (optional) render and show
+
+4. #### Lower memory usage
+- The default batch_size in demo.py needs `~10GB` GPU memory
+- Original demo.py needs large vibe_batch_size to keep GRU hidden states
+- Since the GRU hidden state was fixed now, lowering the memory usage won't harm the accuracy anymore.
+- With the default setting in this repo, inference occupies `~1.3GB` memory, which makes it run on low-end GPU.
+- This will slow down the inference a little. The current setting (batchsize==1) reflect actual realtime processing speed.
+```
+# Large batch causes OOM in low-end memory card
+tracker_batch_size = 12 -> 1
+vibe_batch_size = 450 -> 1
+```
+
+# Other fixes
+
+Remove `seqlen`. The seqlen in demo.py was not used (GRU sequence length is decided in runtime and equals to batch_size)

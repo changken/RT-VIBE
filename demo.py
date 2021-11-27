@@ -29,14 +29,14 @@ from tqdm import tqdm
 from multi_person_tracker import MPT
 from torch.utils.data import DataLoader
 
-from lib.models.vibe import VIBE_Demo
-from lib.utils.renderer import Renderer
-from lib.dataset.inference import Inference
-from lib.utils.smooth_pose import smooth_pose
-from lib.data_utils.kp_utils import convert_kps
-from lib.utils.pose_tracker import run_posetracker
+from vibe.lib.models.vibe import VIBE_Demo
+from vibe.lib.utils.renderer import Renderer
+from vibe.lib.dataset.inference import Inference
+from vibe.lib.utils.smooth_pose import smooth_pose
+from vibe.lib.data_utils.kp_utils import convert_kps
+from vibe.lib.utils.pose_tracker import run_posetracker
 
-from lib.utils.demo_utils import (
+from vibe.lib.utils.demo_utils import (
     download_youtube_clip,
     smplify_runner,
     convert_crop_coords_to_orig_img,
@@ -103,7 +103,7 @@ def main(args):
 
     # ========= Define VIBE model ========= #
     model = VIBE_Demo(
-        seqlen=16,
+        # seqlen=16,  # No usage
         n_layers=2,
         hidden_size=1024,
         add_linear=True,
@@ -145,7 +145,7 @@ def main(args):
         frames = dataset.frames
         has_keypoints = True if joints2d is not None else False
 
-        dataloader = DataLoader(dataset, batch_size=args.vibe_batch_size, num_workers=16)
+        dataloader = DataLoader(dataset, batch_size=args.vibe_batch_size, num_workers=0)
 
         with torch.no_grad():
 
@@ -371,13 +371,13 @@ if __name__ == '__main__':
     parser.add_argument('--yolo_img_size', type=int, default=416,
                         help='input image size for yolo detector')
 
-    parser.add_argument('--tracker_batch_size', type=int, default=12,
+    parser.add_argument('--tracker_batch_size', type=int, default=1,
                         help='batch size of object detector used for bbox tracking')
 
     parser.add_argument('--staf_dir', type=str, default='/home/mkocabas/developments/openposetrack',
                         help='path to directory STAF pose tracking method installed.')
 
-    parser.add_argument('--vibe_batch_size', type=int, default=450,
+    parser.add_argument('--vibe_batch_size', type=int, default=1,
                         help='batch size of VIBE')
 
     parser.add_argument('--display', action='store_true',

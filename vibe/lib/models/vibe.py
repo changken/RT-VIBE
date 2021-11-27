@@ -48,11 +48,12 @@ class TemporalEncoder(nn.Module):
         elif add_linear:
             self.linear = nn.Linear(hidden_size, 2048)
         self.use_residual = use_residual
+        self.gru_final_hidden = None
 
     def forward(self, x):
         n,t,f = x.shape
-        x = x.permute(1,0,2) # NTF -> TNF
-        y, _ = self.gru(x)
+        x = x.permute(1,0,2)  # NTF -> TNF
+        y, self.gru_final_hidden = self.gru(x, self.gru_final_hidden)
         if self.linear:
             y = F.relu(y)
             y = self.linear(y.view(-1, y.size(-1)))
@@ -120,7 +121,7 @@ class VIBE(nn.Module):
 class VIBE_Demo(nn.Module):
     def __init__(
             self,
-            seqlen,
+            # seqlen,
             batch_size=64,
             n_layers=1,
             hidden_size=2048,
@@ -132,7 +133,7 @@ class VIBE_Demo(nn.Module):
 
         super(VIBE_Demo, self).__init__()
 
-        self.seqlen = seqlen
+        # self.seqlen = seqlen
         self.batch_size = batch_size
 
         self.encoder = TemporalEncoder(
