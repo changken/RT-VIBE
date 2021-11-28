@@ -1,12 +1,27 @@
+# Real-time VIBE, inference frame-by-frame
 # Overview
 This is a wrapper of VIBE at [https://github.com/mkocabas/VIBE]
 
-Under development.
+Frame-by-frame inference: (live_demo.py)
+```python
+import cv2
+from vibe.live.vibe_live import VibeLive
 
-# Task list
+if __name__ == '__main__':
+    vibe_live = VibeLive()
+    cap = cv2.VideoCapture('sample_video.mp4')
+    while cap.isOpened():
+        ret, frame = cap.read()
+        if ret:
+            vibe_live(frame)
+        else:
+            break
+```
+
+# Features
 - [x] Make VIBE an installable package
 - [x] Fix **GRU hidden states discontinuous between batches** in demo.py
-- [ ] Add **realtime live interface** which processes the video stream frame-by-frame
+- [x] Add **realtime live interface** which processes the video stream frame-by-frame
 - [x] Lower GPU memory usage
 
 # Explain
