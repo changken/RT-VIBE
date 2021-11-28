@@ -1,10 +1,10 @@
 import os
 import torch
 
-from lib.dataset import ThreeDPW
-from lib.models import VIBE
-from lib.core.evaluate import Evaluator
-from lib.core.config import parse_args
+from vibe.dataset import ThreeDPW
+from vibe.models import VIBE
+from vibe.core.evaluate import Evaluator
+from vibe.core.config import parse_args
 from torch.utils.data import DataLoader
 
 

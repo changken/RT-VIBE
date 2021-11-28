@@ -29,14 +29,14 @@ from tqdm import tqdm
 from multi_person_tracker import MPT
 from torch.utils.data import DataLoader
 
-from vibe.lib.models.vibe import VIBE_Demo
-from vibe.lib.utils.renderer import Renderer
-from vibe.lib.dataset.inference import Inference
-from vibe.lib.utils.smooth_pose import smooth_pose
-from vibe.lib.data_utils.kp_utils import convert_kps
-from vibe.lib.utils.pose_tracker import run_posetracker
+from vibe.models.vibe import VIBE_Demo
+from vibe.utils.renderer import Renderer
+from vibe.dataset.inference import Inference
+from vibe.utils.smooth_pose import smooth_pose
+from vibe.data_utils.kp_utils import convert_kps
+from vibe.utils.pose_tracker import run_posetracker
 
-from vibe.lib.utils.demo_utils import (
+from vibe.utils.demo_utils import (
     download_youtube_clip,
     smplify_runner,
     convert_crop_coords_to_orig_img,

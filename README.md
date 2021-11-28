@@ -12,7 +12,7 @@ Under development.
 # Explain
 1. #### Pip installable. 
 
-- This repository put the original project into "vibe" folder, correct corresponding imports, and add some `__init__.py` files. Now it can be installed with:
+- This repo renames "lib" to "vibe" ("lib" is not a feasible package name), correct corresponding imports, add some `__init__.py` files. It can be installed with:
 ```
 pip install git+https://github.com/zc402/VIBE.git
 ```
@@ -55,18 +55,25 @@ y, self.gru_final_hidden = self.gru(x, self.gru_final_hidden)
   - (optional) render and show (frame by frame)
   - save rendered result
 
-- Processing steps of realtime live interface
+- Processing steps of **realtime live interface**
   - create VIBE model.
   - read a frame with cv2
   - run tracking for 1 frame
   - predict smpl params for each person, keep the hidden states separately.
   - (optional) render and show
+- **Changes**
+  - Multi-person-tracker is modified to receive image instead of image folder.
+  - a `mpt_live.py` file is added to manage the life cycle of hidden states.
+  - a dataset wrapper is added to convert single image into a pytorch dataset.
+  - a `live_demo.py` is added to demonstrate the usage.
+  - ImageFolder dataset is modified
+  - ImgInference dataset is modified
 
 4. #### Lower memory usage
 - The default batch_size in demo.py needs `~10GB` GPU memory
 - Original demo.py needs large vibe_batch_size to keep GRU hidden states
 - Since the GRU hidden state was fixed now, lowering the memory usage won't harm the accuracy anymore.
-- With the default setting in this repo, inference occupies `~1.3GB` memory, which makes it run on low-end GPU.
+- With the default setting in this repo, inference occupies `~1.3GB` memory, which makes it runable on low-end GPU.
 - This will slow down the inference a little. The current setting (batchsize==1) reflect actual realtime processing speed.
 ```
 # Large batch causes OOM in low-end memory card
@@ -76,4 +83,4 @@ vibe_batch_size = 450 -> 1
 
 # Other fixes
 
-Remove `seqlen`. The seqlen in demo.py was not used (GRU sequence length is decided in runtime and equals to batch_size)
+Remove `seqlen`. The seqlen in demo.py has no usage (GRU sequence length is decided in runtime and equals to batch_size). With the fix in this repo, it is safe to set batch_size to 1.

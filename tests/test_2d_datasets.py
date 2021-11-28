@@ -2,13 +2,10 @@ import sys
 sys.path.append('')
 
 import torch
-import numpy as np
-import skimage.io as io
 import matplotlib.pyplot as plt
 from torch.utils.data import DataLoader
 
-from vibe.lib.dataset import *
-from vibe.lib.utils.vis import batch_draw_skeleton, batch_visualize_preds
+from vibe.utils.vis import batch_draw_skeleton
 
 
 def debug_2d_data(dataset, DEBUG=True):

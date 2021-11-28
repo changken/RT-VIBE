@@ -24,13 +24,13 @@ import numpy as np
 import torch.backends.cudnn as cudnn
 from torch.utils.tensorboard import SummaryWriter
 
-from lib.core.loss import VIBELoss
-from lib.core.trainer import Trainer
-from lib.core.config import parse_args
-from lib.utils.utils import prepare_output_dir
-from lib.models import VIBE, MotionDiscriminator
-from lib.dataset.loaders import get_data_loaders
-from lib.utils.utils import create_logger, get_optimizer
+from vibe.core.loss import VIBELoss
+from vibe.core.trainer import Trainer
+from vibe.core.config import parse_args
+from vibe.utils.utils import prepare_output_dir
+from vibe.models import VIBE, MotionDiscriminator
+from vibe.dataset.loaders import get_data_loaders
+from vibe.utils.utils import create_logger, get_optimizer
 
 
 def main(cfg):

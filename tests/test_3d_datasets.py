@@ -1,11 +1,10 @@
 import sys
 sys.path.append('')
 import time
-from vibe.lib.dataset import *
 import matplotlib.pyplot as plt
 from torch.utils.data import DataLoader
-from vibe.lib.models.smpl import SMPL, SMPL_MODEL_DIR
-from vibe.lib.utils.vis import batch_draw_skeleton, batch_visualize_preds
+from vibe.models.smpl import SMPL, SMPL_MODEL_DIR
+from vibe.utils.vis import batch_draw_skeleton, batch_visualize_preds
 
 dataset = 'MPII3D'
 seqlen = 16
