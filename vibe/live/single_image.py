@@ -7,7 +7,7 @@ from torch.utils.data import Dataset
 from torchvision.transforms.functional import to_tensor
 
 
-class SingleImage(Dataset):  # modified from ImageFolder
+class SingleImage(Dataset):  # modified from multi_person_tracker.data.ImageFolder
     def __init__(self, image: np.ndarray):
         self.image = image
 

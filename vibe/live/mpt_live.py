@@ -11,6 +11,10 @@ from multi_person_tracker import Sort
 
 class MptLive(MPT):
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.prev_tracker = None
+
     @torch.no_grad()
     def run_tracker(self, dataloader):
         '''
@@ -21,10 +25,12 @@ class MptLive(MPT):
         :return: trackers (ndarray): output tracklets of shape Nx5 [x1,y1,x2,y2,track_id]
         '''
 
-        # initialize tracker
-        self.tracker = Sort()
+        # Dirty frame-by-frame implementation
+        if self.prev_tracker is None:
+            self.tracker = Sort()
+        else:
+            self.tracker = self.prev_tracker  # initialize tracker
 
-        print('Running Multi-Person-Tracker')
         trackers = []
         for batch in dataloader:
             batch = batch.to(self.device)
@@ -43,7 +49,7 @@ class MptLive(MPT):
                 else:
                     track_bbs_ids = np.empty((0, 5))
                 trackers.append(track_bbs_ids)
-
+        self.prev_tracker = self.tracker
         return trackers
 
     @torch.no_grad()

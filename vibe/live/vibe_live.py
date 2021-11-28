@@ -65,6 +65,7 @@ class VibeLive:
         print(f'Loaded pretrained weights from \"{pretrained_file}\"')
 
         self.renderer = None  # lazy initialize with first image to get W,H
+        self.mesh_color = {k: colorsys.hsv_to_rgb(np.random.rand(), 0.5, 1.0) for k in range(100)}
 
     @torch.no_grad()
     def __call__(self, image: np.ndarray):
@@ -179,7 +180,6 @@ class VibeLive:
 
             # prepare results for rendering
             frame_results = prepare_rendering_results(vibe_results, num_frames)
-            mesh_color = {k: colorsys.hsv_to_rgb(np.random.rand(), 0.5, 1.0) for k in vibe_results.keys()}
 
             img = image
 
@@ -187,7 +187,7 @@ class VibeLive:
                 frame_verts = person_data['verts']
                 frame_cam = person_data['cam']
 
-                mc = mesh_color[person_id]
+                mc = self.mesh_color[person_id]
 
                 mesh_filename = None
 
