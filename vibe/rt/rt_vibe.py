@@ -65,7 +65,8 @@ class RtVibe:
         print(f'Loaded pretrained weights from \"{pretrained_file}\"')
 
         self.renderer = None  # lazy initialize with first image to get W,H
-        self.mesh_color = {k: colorsys.hsv_to_rgb(np.random.rand(), 0.5, 1.0) for k in range(100)}
+        # TODO: Fix for unlimited people number
+        self.mesh_color = {k: colorsys.hsv_to_rgb(np.random.rand(), 0.5, 1.0) for k in range(1000)}
 
     @torch.no_grad()
     def __call__(self, image: np.ndarray):
@@ -85,7 +86,7 @@ class RtVibe:
                 tracking_hidden[person_id] = None  # use None and pytorch will take care of the initialization.
         self.prev_tracking_hidden = tracking_hidden  # The lost trackers are deleted
         del tracking_hidden
-        # VIBE
+        # RT-VIBE
         vibe_results = {}
         for person_id in list(tracking_results.keys()):
             bboxes = tracking_results[person_id]['bbox']

@@ -7,7 +7,13 @@ from vibe.rt import RtVibe
 def main(args):
     rt_vibe = RtVibe()
 
-    video = args.vid_file if args.vid_file is not None else 'sample_video.mp4'
+    if args.camera:
+        video = 0
+    elif args.vid_file:
+        video = args.vid_file
+    else:
+        video = 'sample_video.mp4'
+
     rt_vibe.render = args.render
     rt_vibe.sideview = args.sideview
 
@@ -34,6 +40,9 @@ if __name__ == '__main__':
 
     parser.add_argument('--sideview', action='store_true',
                         help='render meshes from alternate viewpoint.')
+
+    parser.add_argument('--camera', action='store_true',
+                        help='use camera as input')
 
     args = parser.parse_args()
 
