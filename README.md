@@ -42,6 +42,14 @@ Run on camera
 python rt_demo.py --camera
 ```
 
+# Try with google colab
+
+This notebook provides video and camera inference example. 
+
+(there are some dependency errors during pip install, which is safe to ignore. Remember to restart environment after installing `pytorch`.)
+
+https://colab.research.google.com/drive/1VKXGTfwIYT-ltbbEjhCpEczGpksb8I7o?usp=sharing
+
 # Features
 - [x] Make VIBE an installable package
 - [x] Fix **GRU hidden states lost between batches** in demo.py
