@@ -65,9 +65,9 @@ https://colab.research.google.com/drive/1VKXGTfwIYT-ltbbEjhCpEczGpksb8I7o?usp=sh
 # Explain
 1. ### Pip installable. 
 
-- This repo renames "lib" to "vibe" ("lib" is not a feasible package name), correct corresponding imports, add some `__init__.py` files. It can be installed with:
+- This repo renames "lib" to "vibe" ("lib" is not a feasible package name), corrects corresponding imports, adds `__init__.py` files. It can be installed with:
 ```
-pip install git+https://github.com/zc402/VIBE.git
+pip install git+https://github.com/zc402/RT-VIBE
 ```
 
 2. ### GRU hidden state lost:
@@ -76,7 +76,7 @@ pip install git+https://github.com/zc402/VIBE.git
 
 - The GRU hidden state is `reset` at:
 ```
-# /home/zc/Projects/VIBE/vibe/lib/models/vibe.py
+# .../models/vibe.py
 # class TemporalEncoder
 # def forward()
 y, _ = self.gru(x)
