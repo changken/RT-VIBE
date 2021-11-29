@@ -1,5 +1,5 @@
 # Real-time VIBE
-#### Execute VIBE inference frame-by-frame. 
+#### Inference VIBE frame-by-frame. 
 
 <p float="center">
   <img src="doc/assets/rt.jpg" width="80%" />
@@ -7,7 +7,7 @@
 
 
 # Overview
-This is a **frame-by-frame** inference fork of VIBE at [https://github.com/mkocabas/VIBE]
+This is a **frame-by-frame** inference fork of VIBE at [https://github.com/mkocabas/VIBE]. 
 
 Usage:
 
@@ -25,7 +25,7 @@ while cap.isOpened():
 SMPL Render takes most of the time, which can be closed with `vibe_live.render = False`
 
 # Getting Started
-Run on sample video
+Installation:
 ```bash
 # conda must be installed first
 wget https://github.com/zc402/RT-VIBE/releases/download/v1.0.0/RT-VIBE.tar.gz
@@ -34,10 +34,16 @@ cd RT-VIBE
 # This will create a new conda env called vibe_env
 source scripts/install_conda.sh
 pip install .  # Install rt-vibe
-python rt_demo.py
 ```
 
-Run on camera
+Run on sample video:
+```bash
+python rt_demo.py  # (This runs sample_video.mp4)
+# or
+python rt_demo.py --vid_file=multiperson.mp4
+```
+
+Run on camera:
 ```bash
 python rt_demo.py --camera
 ```
