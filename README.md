@@ -28,9 +28,9 @@ SMPL Render takes most of the time, which can be closed with `vibe_live.render =
 Run on sample video
 ```bash
 # conda must be installed first
-wget ...  # TODO
-tar zxf ...
-cd 
+wget https://github.com/zc402/RT-VIBE/releases/download/v1.0.0/RT-VIBE.tar.gz
+tar zxf RT-VIBE.tar.gz
+cd RT-VIBE
 # This will create a new conda env called vibe_env
 source scripts/install_conda.sh
 python rt_demo.py
