@@ -33,8 +33,10 @@ tar zxf RT-VIBE.tar.gz
 cd RT-VIBE
 # This will create a new conda env called vibe_env
 source scripts/install_conda.sh
+pip install .  # Install rt-vibe
 python rt_demo.py
 ```
+
 Run on camera
 ```bash
 python rt_demo.py --camera
@@ -100,12 +102,11 @@ y, self.gru_final_hidden = self.gru(x, self.gru_final_hidden)
   - (optional) render and show
 - **Changes**
   - Multi-person-tracker is modified to receive image instead of image folder.
-  - a `mpt_live.py` file is added to manage the life cycle of hidden states.
   - a dataset wrapper is added to convert single image into a pytorch dataset.
-  - a `live_demo.py` is added to demonstrate the usage.
+  - a `rt_demo.py` is added to demonstrate the usage.
   - ImageFolder dataset is modified
   - ImgInference dataset is modified
-  - requirements are modified to freeze current tracker version. (Class in this repo inherits the tracker and changes its behavior)
+  - requirements are modified to freeze current tracker version. (Class in my repo inherits the tracker and changes its behavior)
 
 4. ### Decrease inference memory usage
 - The default batch_size in demo.py needs `~10GB` GPU memory
