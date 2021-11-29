@@ -3,7 +3,7 @@ import numpy as np
 import torch
 from torch.utils.data import DataLoader
 
-from vibe.live.single_image import SingleImage
+from vibe.rt.single_image import SingleImage
 
 from multi_person_tracker import MPT
 from multi_person_tracker import Sort

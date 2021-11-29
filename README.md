@@ -1,40 +1,41 @@
-# Real-time VIBE, inference frame-by-frame
-# Overview
-This is a wrapper of VIBE at [https://github.com/mkocabas/VIBE]
+# Real-time VIBE
+Execute VIBE inference frame-by-frame. 
 
-Frame-by-frame inference: (live_demo.py)
+# Overview
+This is a frame-by-frame inference fork of VIBE at [https://github.com/mkocabas/VIBE]
+
+Usage:
+
 ```python
 import cv2
-from vibe.live.vibe_live import VibeLive
+from vibe.rt.rt_vibe import RtVibe
 
-if __name__ == '__main__':
-    vibe_live = VibeLive()
-    cap = cv2.VideoCapture('sample_video.mp4')
-    while cap.isOpened():
-        ret, frame = cap.read()
-        if ret:
-            vibe_live(frame)
-        else:
-            break
+rt_vibe = RtVibe()
+cap = cv2.VideoCapture('sample_video.mp4')
+while cap.isOpened():
+    ret, frame = cap.read()
+    rt_vibe(frame)  # This will open a cv2 window
 ```
+
+SMPL Render takes most of the time, which can be closed with `vibe_live.render = False`
 
 # Features
 - [x] Make VIBE an installable package
-- [x] Fix **GRU hidden states discontinuous between batches** in demo.py
-- [x] Add **realtime live interface** which processes the video stream frame-by-frame
-- [x] Lower GPU memory usage
+- [x] Fix **GRU hidden states lost between batches** in demo.py
+- [x] Add **realtime interface** which processes the video stream frame-by-frame
+- [x] Decrease GPU memory usage
 
 # Explain
-1. #### Pip installable. 
+1. ### Pip installable. 
 
 - This repo renames "lib" to "vibe" ("lib" is not a feasible package name), correct corresponding imports, add some `__init__.py` files. It can be installed with:
 ```
 pip install git+https://github.com/zc402/VIBE.git
 ```
 
-2. #### GRU hidden state reset bug:
+2. ### GRU hidden state lost:
 
-- The original vibe.py **reset** GRU memory between batches, which causes discontinuous predictions. This repo fix that.
+- The original vibe.py **reset** GRU memory for each batch, which causes discontinuous predictions.
 
 - The GRU hidden state is `reset` at:
 ```
@@ -59,9 +60,9 @@ self.gru_final_hidden = None
 y, self.gru_final_hidden = self.gru(x, self.gru_final_hidden)
 ```
 
-3. #### Realtime interface (Under development)
+3. ### Real-time interface
 
-- This feature will hopefully make VIBE runnable on webcam.
+- This feature makes VIBE run on webcam.
 
 - Processing steps of the original VIBE :
   - use ffmpeg to **split video** into images, save to /tmp 
@@ -70,7 +71,7 @@ y, self.gru_final_hidden = self.gru(x, self.gru_final_hidden)
   - (optional) render and show (frame by frame)
   - save rendered result
 
-- Processing steps of **realtime live interface**
+- Processing steps of **realtime interface**
   - create VIBE model.
   - read a frame with cv2
   - run tracking for 1 frame
@@ -83,8 +84,9 @@ y, self.gru_final_hidden = self.gru(x, self.gru_final_hidden)
   - a `live_demo.py` is added to demonstrate the usage.
   - ImageFolder dataset is modified
   - ImgInference dataset is modified
+  - requirements are modified to freeze current tracker version. (Class in this repo inherits the tracker and changes its behavior)
 
-4. #### Lower memory usage
+4. ### Decrease inference memory usage
 - The default batch_size in demo.py needs `~10GB` GPU memory
 - Original demo.py needs large vibe_batch_size to keep GRU hidden states
 - Since the GRU hidden state was fixed now, lowering the memory usage won't harm the accuracy anymore.

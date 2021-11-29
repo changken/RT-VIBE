@@ -7,7 +7,7 @@ import colorsys
 import cv2
 from torch.utils.data import DataLoader
 from tqdm import tqdm
-from vibe.live.mpt_live import MptLive
+from vibe.rt.rt_mpt import MptLive
 
 from vibe.models.vibe import VIBE_Demo
 from vibe.utils.renderer import Renderer
@@ -15,7 +15,7 @@ from vibe.dataset.inference import Inference
 from vibe.utils.smooth_pose import smooth_pose
 from vibe.data_utils.kp_utils import convert_kps
 from vibe.utils.pose_tracker import run_posetracker
-from vibe.live.single_img_inference import SingleImgInference
+from vibe.rt.single_img_inference import SingleImgInference
 from vibe.utils.demo_utils import (
     download_youtube_clip,
     smplify_runner,
@@ -30,7 +30,7 @@ from vibe.utils.demo_utils import (
 os.environ['PYOPENGL_PLATFORM'] = 'egl'
 
 
-class VibeLive:
+class RtVibe:
     @torch.no_grad()
     def __init__(self, render=True):
         self.device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
@@ -215,3 +215,5 @@ class VibeLive:
 
             cv2.imshow('Video', img)
             cv2.waitKey(1)
+
+        return vibe_results
