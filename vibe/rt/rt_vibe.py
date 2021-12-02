@@ -21,11 +21,12 @@ from vibe.utils.demo_utils import (
     smplify_runner,
     convert_crop_coords_to_orig_img,
     convert_crop_cam_to_orig_img,
-    prepare_rendering_results,
+    # prepare_rendering_results,
     video_to_images,
     images_to_video,
     download_ckpt,
 )
+from vibe.rt.utils import prepare_rendering_results_rt
 
 os.environ['PYOPENGL_PLATFORM'] = 'egl'
 
@@ -225,7 +226,7 @@ class RtVibe:
         # ========= Render results as a single video ========= #
 
         # prepare results for rendering
-        frame_results = prepare_rendering_results(vibe_results, num_frames)
+        frame_results = prepare_rendering_results_rt(vibe_results)
 
         img = image
 
