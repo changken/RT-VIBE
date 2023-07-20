@@ -2,7 +2,7 @@ import argparse
 
 import cv2
 from vibe.rt import RtVibe
-
+import time
 
 def main(args):
     rt_vibe = RtVibe()
@@ -20,12 +20,16 @@ def main(args):
     cap = cv2.VideoCapture(video)
     if not cap.isOpened():
         print("Error opening video stream or file")
+    
     while cap.isOpened():
+        start_time = time.time()
         ret, frame = cap.read()
         if ret:
             result = rt_vibe(frame)
         else:
             break
+        end_time = time.time()
+        print(1 / (end_time - start_time), " FPS")
 
 
 if __name__ == '__main__':

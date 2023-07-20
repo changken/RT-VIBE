@@ -28,7 +28,7 @@ from vibe.utils.demo_utils import (
 )
 from vibe.rt.utils import prepare_rendering_results_rt
 
-os.environ['PYOPENGL_PLATFORM'] = 'egl'
+# os.environ['PYOPENGL_PLATFORM'] = 'egl'
 
 
 class HiddenStates:
@@ -65,7 +65,9 @@ class RtVibe:
 
     @torch.no_grad()
     def __init__(self, render=True):
-        self.device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
+        self.device = torch.device('cuda:0') if torch.cuda.is_available() else torch.device('cpu')
+        print("device ", self.device)
+        
         self.render = render
         self.wireframe = False
         self.sideview = False

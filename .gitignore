@@ -5,3 +5,6 @@ vibe-env/
 output/
 *.mp4
 results
+
+build
+vibe.egg-info
